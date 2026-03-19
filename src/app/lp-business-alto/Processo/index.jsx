@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LoaderIcon } from "@/components/ui/loader-icon";
 import { Compass, FileSearch, LayoutTemplate, Rocket } from "lucide-react";
 
 const passos = [
@@ -36,7 +37,7 @@ const passos = [
 
 export default function Processo() {
   return (
-    <section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <section data-lp-section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
           className="max-w-3xl"
@@ -59,6 +60,7 @@ export default function Processo() {
             {passos.map(({ id, icon: Icon, title, description }, index) => (
               <motion.article
                 key={id}
+                data-lp-card
                 className="relative rounded-2xl border border-slate-700 bg-slate-900/70 p-5 shadow-lg shadow-slate-950/30"
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +77,10 @@ export default function Processo() {
                     whileHover={{ rotate: [0, -10, 10, 0] }}
                     transition={{ duration: 0.45 }}
                   >
-                    <Icon size={16} />
+                    <div className="flex items-center gap-1.5">
+                      <LoaderIcon size={13} className="text-cyan-300" />
+                      <Icon size={15} />
+                    </div>
                   </motion.div>
                 </div>
                 <h3 className="text-base font-semibold text-white">{title}</h3>

@@ -5,11 +5,10 @@ import { Building2, Quote, Star } from "lucide-react";
 
 const resultados = [
   { valor: "+200", label: "Projetos implementados" },
+  { valor: "+450", label: "Clientes corporativos ativos" },
   { valor: "95%", label: "Satisfação média" },
   { valor: "4.9/5", label: "Avaliação dos clientes" },
 ];
-
-const empresas = ["Atlas", "Nexo", "Volt", "Hubline", "PrimeLabs"];
 
 const depoimentos = [
   {
@@ -28,7 +27,7 @@ const depoimentos = [
 
 export default function Proof() {
   return (
-    <section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <section data-lp-section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
           className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"
@@ -51,10 +50,11 @@ export default function Proof() {
           </div>
         </motion.div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {resultados.map((item, index) => (
             <motion.article
               key={item.label}
+              data-lp-card
               className="rounded-2xl border border-slate-700 bg-slate-800/70 p-5 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -71,6 +71,7 @@ export default function Proof() {
           {depoimentos.map((item, index) => (
             <motion.article
               key={item.nome}
+              data-lp-card
               className="rounded-2xl border border-slate-700 bg-slate-800/70 p-6 shadow-lg shadow-slate-950/30"
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,22 +87,22 @@ export default function Proof() {
           ))}
         </div>
 
-        <div className="mt-6 rounded-2xl border border-slate-700 bg-slate-800/70 p-5">
+        <motion.div
+          data-lp-card
+          className="mt-6 rounded-2xl border border-slate-700 bg-slate-800/70 p-5"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45 }}
+        >
           <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-200">
             <Building2 size={16} className="text-cyan-300" />
-            Empresas atendidas
+            Métricas reais do cenário atual
           </div>
-          <div className="flex flex-wrap gap-2">
-            {empresas.map((empresa) => (
-              <span
-                key={empresa}
-                className="rounded-full border border-slate-600 px-3 py-1 text-xs text-slate-300"
-              >
-                {empresa}
-              </span>
-            ))}
-          </div>
-        </div>
+          <p className="text-sm leading-relaxed text-slate-300">
+            Operação com base ativa acima de <span className="font-semibold text-white">+450 clientes corporativos</span>, mantendo consistência de atendimento e crescimento previsível.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

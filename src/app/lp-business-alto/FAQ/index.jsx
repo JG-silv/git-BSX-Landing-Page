@@ -1,6 +1,7 @@
-"use client";
+  "use client";
 
 import { motion } from "framer-motion";
+import { LoaderIcon } from "@/components/ui/loader-icon";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -31,7 +32,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <section data-lp-section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-4xl">
         <motion.div
           className="text-center"
@@ -41,7 +42,10 @@ export default function FAQ() {
           transition={{ duration: 0.55 }}
         >
           <span className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
-            FAQ
+            <span className="inline-flex items-center gap-1">
+              <LoaderIcon size={13} className="text-indigo-300" />
+              FAQ
+            </span>
           </span>
           <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
             Perguntas frequentes
@@ -57,6 +61,7 @@ export default function FAQ() {
             return (
               <motion.article
                 key={item.pergunta}
+                data-lp-card
                 className="rounded-2xl border border-slate-700 bg-slate-800/70 px-4 py-3 transition hover:border-indigo-400/40 sm:px-5"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}

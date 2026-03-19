@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LoaderIcon } from "@/components/ui/loader-icon";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <section data-lp-section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
+          data-lp-card
           className="rounded-3xl border border-indigo-400/25 bg-gradient-to-r from-indigo-600/25 via-slate-900 to-cyan-500/20 p-6 shadow-2xl shadow-indigo-950/30 sm:p-10"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +22,10 @@ export default function CTA() {
                 animate={{ rotate: [0, -12, 12, 0] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Sparkles size={14} />
+                <span className="flex items-center gap-1">
+                  <LoaderIcon size={14} className="text-cyan-100" />
+                  <Sparkles size={13} />
+                </span>
               </motion.span>
               Próximo passo
             </div>

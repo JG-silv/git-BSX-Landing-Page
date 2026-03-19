@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LoaderIcon } from "@/components/ui/loader-icon";
 import { BarChart3, Layers3, Rocket, ShieldCheck } from "lucide-react";
 
 const beneficios = [
@@ -36,7 +37,7 @@ const beneficios = [
 
 export default function Beneficios() {
   return (
-    <section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <section data-lp-section className="bg-slate-950 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
           className="max-w-2xl"
@@ -60,6 +61,7 @@ export default function Beneficios() {
           {beneficios.map(({ icon: Icon, title, description, size }, index) => (
             <motion.article
               key={title}
+              data-lp-card
               className={`rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-900/65 p-5 shadow-lg shadow-indigo-950/20 transition hover:-translate-y-0.5 hover:border-indigo-400/40 ${size}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +74,10 @@ export default function Beneficios() {
                 whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
                 transition={{ duration: 0.45 }}
               >
-                <Icon size={20} />
+                <div className="flex items-center gap-1.5">
+                  <LoaderIcon size={14} className="text-cyan-300" />
+                  <Icon size={18} />
+                </div>
               </motion.div>
               <h3 className="text-lg font-semibold text-white">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">{description}</p>
