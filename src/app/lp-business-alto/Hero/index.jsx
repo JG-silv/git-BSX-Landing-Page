@@ -88,38 +88,40 @@ export default function Hero() {
   };
 
   const inputClassName = (hasError) =>
-    `w-full rounded-xl border px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition ${
+    `w-full rounded-xl border bg-white/90 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition ${
       hasError
         ? "border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100"
         : "border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
     }`;
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-4 pb-14 pt-10 sm:px-6 lg:px-8 lg:pb-20 lg:pt-16">
-      <div className="absolute -left-16 top-10 h-48 w-48 rounded-full bg-indigo-500/20 blur-3xl" />
-      <div className="absolute -right-10 bottom-12 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl" />
-      <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:items-center">
-        <div className="space-y-7">
-          <span className="inline-flex items-center rounded-full border border-indigo-400/35 bg-indigo-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-100">
-            Solução premium para aquisição de clientes
+    <section className="relative overflow-hidden bg-slate-950 px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pb-24 lg:pt-16">
+      <div className="absolute -left-10 top-0 h-56 w-56 rounded-full bg-indigo-500/25 blur-3xl" />
+      <div className="absolute right-0 top-20 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-900 to-transparent" />
+
+      <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-12 lg:items-center">
+        <div className="space-y-7 lg:col-span-7">
+          <span className="inline-flex items-center rounded-full border border-indigo-300/35 bg-indigo-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-indigo-100">
+            Produto digital para crescimento previsível
           </span>
-          <h1 className="max-w-xl text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
-            Construa um funil previsível de vendas com uma operação digital de alto desempenho
+          <h1 className="max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
+            A sua operação comercial não precisa depender de tentativa e erro
           </h1>
-          <p className="max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">
-            Estruture sua aquisição com posicionamento premium, estratégia comercial e execução orientada por dados para escalar com confiança.
+          <p className="max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base lg:text-lg">
+            Construímos uma estrutura de aquisição com posicionamento premium, UX de conversão e estratégia orientada por dados para gerar pipeline qualificado com consistência.
           </p>
 
           <div className="grid gap-3 sm:grid-cols-2">
             {[
-              "Estratégia orientada por métricas de conversão",
-              "Posicionamento de marca com percepção premium",
-              "Framework de aquisição para escalar sem desperdício",
-              "Execução com foco em ROI e previsibilidade comercial",
+              "Arquitetura de página orientada a decisão de compra",
+              "Narrativa comercial com percepção de valor premium",
+              "Estratégia de captação focada em leads com fit real",
+              "Decisões priorizadas por impacto em receita",
             ].map((item) => (
               <div
                 key={item}
-                className="flex items-start gap-2 rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-100"
+                className="flex items-start gap-2 rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-100 backdrop-blur"
               >
                 <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-emerald-400" />
                 <span>{item}</span>
@@ -127,21 +129,36 @@ export default function Hero() {
             ))}
           </div>
 
+          <div className="grid grid-cols-3 gap-2 rounded-2xl border border-slate-700 bg-slate-900/60 p-3 text-center text-xs text-slate-300 sm:text-sm">
+            <div>
+              <p className="text-lg font-semibold text-white">+200</p>
+              <p>Projetos entregues</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold text-white">95%</p>
+              <p>Satisfação média</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold text-white">4.9/5</p>
+              <p>Avaliação</p>
+            </div>
+          </div>
+
           <div className="flex items-center gap-2 text-xs text-slate-300 sm:text-sm">
             <ShieldCheck size={16} className="text-emerald-400" />
-            Seus dados são protegidos e usados exclusivamente para contato consultivo.
+            Seus dados ficam protegidos e são usados apenas para atendimento estratégico.
           </div>
         </div>
 
         <div
           id="form-lp-business"
-          className="rounded-3xl border border-slate-700/70 bg-white p-5 shadow-[0_30px_80px_-30px_rgba(99,102,241,0.6)] sm:p-8"
+          className="rounded-3xl border border-white/20 bg-white/75 p-5 shadow-[0_35px_100px_-30px_rgba(99,102,241,0.55)] backdrop-blur-xl sm:p-8 lg:col-span-5"
         >
           <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
-            Solicite uma análise estratégica personalizada
+            Receba um plano de ação para o seu cenário
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Preencha os dados e nossa equipe entra em contato com o próximo passo.
+            Preencha os dados e retornamos com próximos passos claros para escalar com previsibilidade.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>

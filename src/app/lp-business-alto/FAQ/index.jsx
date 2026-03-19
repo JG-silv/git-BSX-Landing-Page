@@ -33,7 +33,7 @@ export default function FAQ() {
     <section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-4xl">
         <div className="text-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
             FAQ
           </span>
           <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
@@ -50,7 +50,7 @@ export default function FAQ() {
             return (
               <article
                 key={item.pergunta}
-                className="rounded-2xl border border-slate-700 bg-slate-800/70 px-4 py-3 sm:px-5"
+                className="rounded-2xl border border-slate-700 bg-slate-800/70 px-4 py-3 transition hover:border-indigo-400/40 sm:px-5"
               >
                 <button
                   type="button"
@@ -67,11 +67,15 @@ export default function FAQ() {
                     }`}
                   />
                 </button>
-                {isOpen ? (
-                  <p className="mt-3 pr-6 text-sm leading-relaxed text-slate-300">
+                <div
+                  className={`grid transition-all duration-300 ${
+                    isOpen ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <p className="overflow-hidden pr-6 text-sm leading-relaxed text-slate-300">
                     {item.resposta}
                   </p>
-                ) : null}
+                </div>
               </article>
             );
           })}
