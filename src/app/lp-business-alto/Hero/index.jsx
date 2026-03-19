@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Mail, Phone, User } from "lucide-react";
+import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
 
 const initialForm = {
   nome: "",
@@ -15,18 +15,6 @@ export default function Hero() {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const inputBaseClasses =
-    "w-full rounded-xl border px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition";
-  const inputClasses = useMemo(
-    () => ({
-      default:
-        `${inputBaseClasses} border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100`,
-      error:
-        `${inputBaseClasses} border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100`,
-    }),
-    []
-  );
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -84,33 +72,48 @@ export default function Hero() {
     }, 250);
   };
 
+  const inputClassName = (hasError) =>
+    `w-full rounded-xl border px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition ${
+      hasError
+        ? "border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+        : "border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+    }`;
+
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-4 pb-14 pt-10 sm:px-6 lg:px-8 lg:pb-20 lg:pt-16">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:items-center">
+    <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 lg:grid-cols-2 lg:gap-14 lg:items-center">
         <div className="space-y-6">
-          <span className="inline-flex rounded-full border border-blue-400/40 bg-blue-400/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-blue-200">
-            Plataforma Business High Performance
+          <span className="inline-flex items-center rounded-full border border-sky-300/40 bg-sky-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-sky-200">
+            Landing Business Premium
           </span>
           <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-            Diagnóstico estratégico para transformar dados em decisões de alto impacto
+            Acelere sua operação com uma estratégia de crescimento guiada por dados
           </h1>
           <p className="max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">
-            Estruture seu próximo movimento com inteligência operacional, visão de risco e clareza de execução para crescer com previsibilidade.
+            Diagnóstico consultivo para identificar gargalos, oportunidades e prioridades com foco em performance de negócio.
           </p>
+
           <div className="grid grid-cols-1 gap-3 text-sm text-slate-200 sm:grid-cols-2">
-            <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-              Acelera decisões estratégicas com base em dados reais.
+            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+              Planejamento de crescimento com prioridades claras.
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-              Prioriza ações com foco em receita, margem e eficiência.
+            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+              Decisões com menos risco e maior previsibilidade.
             </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-slate-300 sm:text-sm">
+            <ShieldCheck size={16} className="text-emerald-400" />
+            Seus dados são enviados com segurança e usados apenas para contato consultivo.
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-white p-5 shadow-2xl sm:p-8">
-          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">Solicite seu plano personalizado</h2>
+        <div className="rounded-2xl border border-slate-700/70 bg-white p-5 shadow-2xl sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
+            Solicite seu diagnóstico estratégico
+          </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Preencha os dados para receber um contato consultivo.
+            Preencha o formulário e receba retorno do time especialista.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
@@ -126,7 +129,7 @@ export default function Hero() {
                   type="text"
                   value={formData.nome}
                   onChange={handleChange}
-                  className={`${errors.nome ? inputClasses.error : inputClasses.default} pl-10`}
+                  className={`${inputClassName(Boolean(errors.nome))} pl-10`}
                   placeholder="Seu nome completo"
                   required
                 />
@@ -146,7 +149,7 @@ export default function Hero() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`${errors.email ? inputClasses.error : inputClasses.default} pl-10`}
+                  className={`${inputClassName(Boolean(errors.email))} pl-10`}
                   placeholder="voce@empresa.com"
                   required
                 />
@@ -166,7 +169,7 @@ export default function Hero() {
                   type="tel"
                   value={formData.telefone}
                   onChange={handlePhoneChange}
-                  className={`${errors.telefone ? inputClasses.error : inputClasses.default} pl-10`}
+                  className={`${inputClassName(Boolean(errors.telefone))} pl-10`}
                   placeholder="(00) 00000-0000"
                   required
                 />
@@ -177,9 +180,9 @@ export default function Hero() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-75"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-75"
             >
-              {isSubmitting ? "Enviando..." : "Receber diagnóstico"}
+              {isSubmitting ? "Enviando..." : "Quero meu diagnóstico"}
               <ArrowRight size={18} />
             </button>
           </form>

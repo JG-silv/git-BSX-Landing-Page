@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export default function Chat() {
   const [isVisible, setIsVisible] = useState(false);
   const phoneNumber = "5521997147642";
-  const defaultMessage = "Olá! Quero falar com um especialista da LP Business Alto.";
+  const defaultMessage = "Olá! Quero saber mais sobre a landing de estratégia business.";
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
 
   useEffect(() => {
@@ -19,18 +19,19 @@ export default function Chat() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
       <a
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition hover:scale-105 hover:bg-[#20bd5a]"
+        className="group flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2.5 shadow-lg transition hover:scale-[1.02] hover:bg-[#20bd5a]"
       >
+        <span className="hidden text-xs font-semibold text-white sm:block">WhatsApp</span>
         <svg
           className="fill-white"
-          width="34"
-          height="34"
+          width="32"
+          height="32"
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
           y="0px"
