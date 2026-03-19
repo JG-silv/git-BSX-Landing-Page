@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Chat() {
@@ -19,14 +20,21 @@ export default function Chat() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
+    <motion.div
+      className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6"
+      initial={{ opacity: 0, scale: 0.85, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+    >
       <span className="absolute -inset-1 animate-pulse rounded-full bg-emerald-400/35 blur-md" />
-      <a
+      <motion.a
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"
         className="group relative flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2.5 shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-[#20bd5a]"
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.98 }}
       >
         <span className="hidden text-xs font-semibold text-white sm:block">WhatsApp</span>
         <svg
@@ -48,7 +56,7 @@ export default function Chat() {
             clipRule="evenodd"
           ></path>
         </svg>
-      </a>
-    </div>
+      </motion.a>
+    </motion.div>
   );
 }

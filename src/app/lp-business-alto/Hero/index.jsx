@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -101,7 +102,13 @@ export default function Hero() {
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-900 to-transparent" />
 
       <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-12 lg:items-center">
-        <div className="space-y-7 lg:col-span-7">
+        <motion.div
+          className="space-y-7 lg:col-span-7"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
           <span className="inline-flex items-center rounded-full border border-indigo-300/35 bg-indigo-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-indigo-100">
             Produto digital para crescimento previsível
           </span>
@@ -118,14 +125,18 @@ export default function Hero() {
               "Narrativa comercial com percepção de valor premium",
               "Estratégia de captação focada em leads com fit real",
               "Decisões priorizadas por impacto em receita",
-            ].map((item) => (
-              <div
+            ].map((item, index) => (
+              <motion.div
                 key={item}
                 className="flex items-start gap-2 rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-100 backdrop-blur"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-emerald-400" />
                 <span>{item}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -148,11 +159,15 @@ export default function Hero() {
             <ShieldCheck size={16} className="text-emerald-400" />
             Seus dados ficam protegidos e são usados apenas para atendimento estratégico.
           </div>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           id="form-lp-business"
           className="rounded-3xl border border-white/20 bg-white/75 p-5 shadow-[0_35px_100px_-30px_rgba(99,102,241,0.55)] backdrop-blur-xl sm:p-8 lg:col-span-5"
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
         >
           <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
             Receba um plano de ação para o seu cenário
@@ -248,16 +263,18 @@ export default function Hero() {
               </div>
             </div>
 
-            <button
+            <motion.button
               type="submit"
               disabled={isSubmitting}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-75"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.985 }}
             >
               {isSubmitting ? "Enviando..." : "Quero crescer com estratégia"}
               <ArrowRight size={18} />
-            </button>
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

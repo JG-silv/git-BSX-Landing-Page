@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -32,7 +33,13 @@ export default function FAQ() {
   return (
     <section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-4xl">
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
           <span className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
             FAQ
           </span>
@@ -42,15 +49,19 @@ export default function FAQ() {
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Respostas objetivas para você avançar com confiança.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-8 space-y-3">
           {itensFaq.map((item, index) => {
             const isOpen = openIndex === index;
             return (
-              <article
+              <motion.article
                 key={item.pergunta}
                 className="rounded-2xl border border-slate-700 bg-slate-800/70 px-4 py-3 transition hover:border-indigo-400/40 sm:px-5"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.35, delay: index * 0.06 }}
               >
                 <button
                   type="button"
@@ -76,7 +87,7 @@ export default function FAQ() {
                     {item.resposta}
                   </p>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>

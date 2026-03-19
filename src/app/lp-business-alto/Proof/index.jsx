@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Building2, Quote, Star } from "lucide-react";
 
 const resultados = [
@@ -27,7 +30,13 @@ export default function Proof() {
   return (
     <section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <motion.div
+          className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55 }}
+        >
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-300">
               Proof
@@ -40,31 +49,40 @@ export default function Proof() {
             <Star size={16} className="fill-amber-300 text-amber-300" />
             Times de alto crescimento já usam essa estrutura
           </div>
-        </div>
+        </motion.div>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {resultados.map((item) => (
-            <article
+          {resultados.map((item, index) => (
+            <motion.article
               key={item.label}
               className="rounded-2xl border border-slate-700 bg-slate-800/70 p-5 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: index * 0.07 }}
             >
               <p className="text-3xl font-bold text-white">{item.valor}</p>
               <p className="mt-1 text-sm text-slate-300">{item.label}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {depoimentos.map((item) => (
-            <article
+          {depoimentos.map((item, index) => (
+            <motion.article
               key={item.nome}
               className="rounded-2xl border border-slate-700 bg-slate-800/70 p-6 shadow-lg shadow-slate-950/30"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              whileHover={{ y: -4 }}
             >
               <Quote size={18} className="text-indigo-300" />
               <p className="mt-3 text-sm leading-relaxed text-slate-200">{item.texto}</p>
               <p className="mt-4 font-semibold text-white">{item.nome}</p>
               <p className="text-xs text-slate-400">{item.cargo}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
 
