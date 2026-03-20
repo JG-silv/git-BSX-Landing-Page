@@ -28,10 +28,12 @@ export default function Hero() {
   const sectionRef = useRef(null);
   const leftGlowRef = useRef(null);
   const rightGlowRef = useRef(null);
+  const formRef = useRef(null);
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [focusedField, setFocusedField] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -94,11 +96,13 @@ export default function Hero() {
     }
   };
 
-  const inputClassName = (hasError) =>
-    `w-full rounded-xl border bg-white/90 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition ${
+  const inputClassName = (hasError, fieldName) =>
+    `w-full rounded-xl border bg-white/60 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-500 outline-none transition-all duration-300 backdrop-blur-sm ${
       hasError
-        ? "border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-        : "border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+        ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/20 bg-red-50/50"
+        : focusedField === fieldName
+        ? "border-indigo-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 bg-white/90"
+        : "border-slate-200/80 hover:border-slate-300 hover:bg-white/80"
     }`;
 
   useEffect(() => {
@@ -229,79 +233,95 @@ export default function Hero() {
             Preencha os dados e retornamos com próximos passos claros para escalar com previsibilidade.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
+          <form ref={formRef} onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
             {submitError ? (
-              <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-xl border border-red-200 bg-red-50/80 px-3 py-2 text-sm text-red-700 backdrop-blur-sm"
+              >
                 {submitError}
-              </div>
+              </motion.div>
             ) : null}
-            <div>
-              <label htmlFor="nome" className="mb-1 block text-sm font-semibold text-slate-700">
-                Nome
+            <div className="group">
+              <label htmlFor="nome" className="mb-1.5 block text-sm font-medium text-slate-700 transition-colors group-focus-within:text-indigo-600">
+                Nome completo
               </label>
-              <div className="relative rounded-xl transition duration-200 focus-within:-translate-y-0.5">
-                <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <div className="relative">
+                <User className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'nome' ? 'text-indigo-500' : 'text-slate-400'}`} size={18} />
                 <input
                   id="nome"
                   name="nome"
                   type="text"
                   value={formData.nome}
                   onChange={handleChange}
-                  className={`${inputClassName(Boolean(errors.nome))} pl-10`}
-                  placeholder="Seu nome completo"
+                  onFocus={() => setFocusedField("nome")}
+                  onBlur={() => setFocusedField("")}
+                  className={`${inputClassName(Boolean(errors.nome), "nome")} pl-10`}
+                  placeholder="Como gostaria de ser chamado?"
                   required
                 />
               </div>
-              {errors.nome ? <p className="mt-1 text-xs text-red-600">{errors.nome}</p> : null}
+              {errors.nome ? (
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-1 text-xs text-red-500">{errors.nome}</motion.p>
+              ) : null}
             </div>
 
-            <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-semibold text-slate-700">
-                E-mail
+            <div className="group">
+              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700 transition-colors group-focus-within:text-indigo-600">
+                E-mail corporativo
               </label>
-              <div className="relative rounded-xl transition duration-200 focus-within:-translate-y-0.5">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <div className="relative">
+                <Mail className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'email' ? 'text-indigo-500' : 'text-slate-400'}`} size={18} />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`${inputClassName(Boolean(errors.email))} pl-10`}
-                  placeholder="voce@empresa.com"
+                  onFocus={() => setFocusedField("email")}
+                  onBlur={() => setFocusedField("")}
+                  className={`${inputClassName(Boolean(errors.email), "email")} pl-10`}
+                  placeholder="voce@empresa.com.br"
                   required
                 />
               </div>
-              {errors.email ? <p className="mt-1 text-xs text-red-600">{errors.email}</p> : null}
+              {errors.email ? (
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-1 text-xs text-red-500">{errors.email}</motion.p>
+              ) : null}
             </div>
 
-            <div>
-              <label htmlFor="telefone" className="mb-1 block text-sm font-semibold text-slate-700">
-                Telefone
+            <div className="group">
+              <label htmlFor="telefone" className="mb-1.5 block text-sm font-medium text-slate-700 transition-colors group-focus-within:text-indigo-600">
+                WhatsApp
               </label>
-              <div className="relative rounded-xl transition duration-200 focus-within:-translate-y-0.5">
-                <Phone className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <div className="relative">
+                <Phone className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'telefone' ? 'text-indigo-500' : 'text-slate-400'}`} size={18} />
                 <input
                   id="telefone"
                   name="telefone"
                   type="tel"
                   value={formData.telefone}
                   onChange={handlePhoneChange}
-                  className={`${inputClassName(Boolean(errors.telefone))} pl-10`}
+                  onFocus={() => setFocusedField("telefone")}
+                  onBlur={() => setFocusedField("")}
+                  className={`${inputClassName(Boolean(errors.telefone), "telefone")} pl-10`}
                   placeholder="(00) 00000-0000"
                   required
                 />
               </div>
-              {errors.telefone ? <p className="mt-1 text-xs text-red-600">{errors.telefone}</p> : null}
+              {errors.telefone ? (
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-1 text-xs text-red-500">{errors.telefone}</motion.p>
+              ) : null}
             </div>
 
-            <div>
-              <label htmlFor="empresa" className="mb-1 block text-sm font-semibold text-slate-700">
-                Empresa
+            <div className="group">
+              <label htmlFor="empresa" className="mb-1.5 block text-sm font-medium text-slate-700 transition-colors group-focus-within:text-indigo-600">
+                Empresa <span className="text-slate-400 font-normal">(opcional)</span>
               </label>
-              <div className="relative rounded-xl transition duration-200 focus-within:-translate-y-0.5">
+              <div className="relative">
                 <Building2
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'empresa' ? 'text-indigo-500' : 'text-slate-400'}`}
                   size={18}
                 />
                 <input
@@ -310,8 +330,10 @@ export default function Hero() {
                   type="text"
                   value={formData.empresa}
                   onChange={handleChange}
-                  className={`${inputClassName(false)} pl-10`}
-                  placeholder="Nome da empresa (opcional)"
+                  onFocus={() => setFocusedField("empresa")}
+                  onBlur={() => setFocusedField("")}
+                  className={`${inputClassName(false, "empresa")} pl-10`}
+                  placeholder="Nome do seu negócio"
                 />
               </div>
             </div>
@@ -319,20 +341,30 @@ export default function Hero() {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-75"
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.985 }}
+              className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-indigo-600 px-5 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/25 disabled:cursor-not-allowed disabled:opacity-70"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600/0 via-white/20 to-indigo-600/0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+              
               {isSubmitting ? (
-                <>
-                  <LoaderIcon size={16} className="text-white" />
-                  Enviando...
-                </>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-2"
+                >
+                  <LoaderIcon size={18} className="text-white animate-spin" />
+                  <span>Processando...</span>
+                </motion.div>
               ) : (
-                <>
-                  Quero crescer com estratégia
-                  <ArrowRight size={18} />
-                </>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center gap-2 relative z-10"
+                >
+                  Receber plano de ação
+                  <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </motion.div>
               )}
             </motion.button>
           </form>

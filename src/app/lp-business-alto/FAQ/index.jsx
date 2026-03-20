@@ -32,67 +32,78 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section data-lp-section className="bg-slate-900 px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-      <div className="mx-auto w-full max-w-4xl">
+    <section data-lp-section className="relative bg-slate-900 px-4 py-16 sm:px-6 lg:px-8 lg:py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-px w-full bg-gradient-to-r from-transparent via-slate-800 to-transparent" />
+      
+      <div className="relative mx-auto w-full max-w-4xl">
         <motion.div
-          className="text-center"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
-            <span className="inline-flex items-center gap-1">
-              <LoaderIcon size={13} className="text-indigo-300" />
-              FAQ
-            </span>
-          </span>
-          <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
-            Perguntas frequentes
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-3 py-1 mb-6">
+            <span className="text-xs font-medium text-slate-300">Dúvidas Frequentes</span>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Ainda tem alguma <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-500">dúvida?</span>
           </h2>
-          <p className="mt-3 text-sm text-slate-300 sm:text-base">
-            Respostas objetivas para você avançar com confiança.
-          </p>
         </motion.div>
 
-        <div className="mt-8 space-y-3">
-          {itensFaq.map((item, index) => {
+        <div className="mx-auto mt-10 max-w-3xl space-y-4">
+          {itensFaq.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <motion.article
-                key={item.pergunta}
+              <motion.div
+                key={faq.pergunta}
                 data-lp-card
-                className="rounded-2xl border border-slate-700 bg-slate-800/70 px-4 py-3 transition hover:border-indigo-400/40 sm:px-5"
-                initial={{ opacity: 0, y: 16 }}
+                className={`group overflow-hidden rounded-2xl border transition-all duration-300 ${
+                  isOpen 
+                    ? "border-indigo-500/30 bg-slate-800/60 shadow-lg shadow-indigo-900/10" 
+                    : "border-slate-800 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-800/40"
+                }`}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.35, delay: index * 0.06 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                  className="flex w-full items-center justify-between gap-4 text-left"
+                  className="flex w-full items-center justify-between px-6 py-5 text-left focus:outline-none"
                 >
-                  <span className="text-sm font-semibold text-white sm:text-base">
-                    {item.pergunta}
+                  <span className={`text-base font-medium transition-colors duration-300 ${isOpen ? "text-indigo-300" : "text-slate-200 group-hover:text-white"}`}>
+                    {faq.pergunta}
                   </span>
-                  <ChevronDown
-                    size={18}
-                    className={`shrink-0 text-slate-300 transition ${
-                      isOpen ? "rotate-180" : "rotate-0"
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className={`ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
+                      isOpen ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-400" : "border-slate-700 bg-slate-800 text-slate-400 group-hover:border-slate-600 group-hover:text-slate-300"
                     }`}
-                  />
+                  >
+                    <ChevronDown size={16} />
+                  </motion.div>
                 </button>
-                <div
-                  className={`grid transition-all duration-300 ${
-                    isOpen ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                  }`}
+
+                <motion.div
+                  initial={false}
+                  animate={{ 
+                    height: isOpen ? "auto" : 0,
+                    opacity: isOpen ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
                 >
-                  <p className="overflow-hidden pr-6 text-sm leading-relaxed text-slate-300">
-                    {item.resposta}
-                  </p>
-                </div>
-              </motion.article>
+                  <div className="px-6 pb-6 pt-0 text-sm leading-relaxed text-slate-400">
+                    <p className="border-t border-slate-700/50 pt-4 mt-2">
+                      {faq.resposta}
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
             );
           })}
         </div>
