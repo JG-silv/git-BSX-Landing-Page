@@ -39,13 +39,7 @@ export default function Beneficios() {
   return (
     <section data-lp-section className="relative bg-slate-900 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto w-full max-w-7xl">
-        <motion.div
-          className="max-w-2xl"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.55 }}
-        >
+        <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 mb-6">
             <span className="flex h-2 w-2 rounded-full bg-indigo-400" />
             <span className="text-xs font-medium text-indigo-300">Solução Completa</span>
@@ -56,33 +50,24 @@ export default function Beneficios() {
           <p className="mt-4 text-base text-slate-400 sm:text-lg">
             Um framework completo para transformar visitas em leads e leads em vendas recorrentes.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
           {beneficios.map(({ icon: Icon, title, description, size }, index) => (
             <motion.article
               key={title}
-              data-lp-card
-              className={`group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 p-8 transition-all duration-300 hover:bg-slate-800/80 hover:border-indigo-500/30 ${size}`}
-              initial={{ opacity: 0, y: 30 }}
+              className={`group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8 transition-all duration-300 hover:bg-slate-800/80 hover:border-indigo-500/30 ${size}`}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              
-              <motion.div
-                className="mb-6 inline-flex rounded-2xl bg-slate-800 p-3.5 border border-slate-700/50 text-indigo-400 group-hover:bg-indigo-500/20 group-hover:text-indigo-300 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="flex items-center gap-1.5 relative z-10">
-                  <LoaderIcon size={16} className="text-cyan-400 opacity-0 group-hover:opacity-100 absolute -right-2 -top-2 transition-opacity" />
-                  <Icon size={24} strokeWidth={1.5} />
-                </div>
-              </motion.div>
+              <div className="mb-5 inline-flex rounded-xl bg-slate-800 p-3 border border-slate-700/50 text-indigo-400 transition-colors duration-300">
+                <Icon size={24} strokeWidth={1.5} />
+              </div>
               
               <div className="relative z-10">
-                <h3 className="text-xl font-semibold text-slate-100 mb-3">{title}</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-slate-100 mb-2">{title}</h3>
                 <p className="text-sm leading-relaxed text-slate-400">{description}</p>
               </div>
             </motion.article>

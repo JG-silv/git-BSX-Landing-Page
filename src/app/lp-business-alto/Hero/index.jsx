@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "@/components/ui/loader-icon";
 import {
@@ -25,10 +23,6 @@ const initialForm = {
 
 export default function Hero() {
   const router = useRouter();
-  const sectionRef = useRef(null);
-  const leftGlowRef = useRef(null);
-  const rightGlowRef = useRef(null);
-  const formRef = useRef(null);
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -105,54 +99,15 @@ export default function Hero() {
         : "border-slate-200/80 hover:border-slate-300 hover:bg-white/80"
     }`;
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (leftGlowRef.current) {
-        gsap.to(leftGlowRef.current, {
-          y: 50,
-          x: -20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
-      if (rightGlowRef.current) {
-        gsap.to(rightGlowRef.current, {
-          y: -42,
-          x: 24,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       data-lp-section
       className="relative overflow-hidden bg-slate-950 px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pb-24 lg:pt-16"
     >
       <div
-        ref={leftGlowRef}
         className="absolute -left-10 top-0 h-56 w-56 rounded-full bg-indigo-500/25 blur-3xl"
       />
       <div
-        ref={rightGlowRef}
         className="absolute right-0 top-20 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl"
       />
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-900 to-transparent" />
@@ -233,7 +188,7 @@ export default function Hero() {
             Preencha os dados e retornamos com próximos passos claros para escalar com previsibilidade.
           </p>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
             {submitError ? (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}

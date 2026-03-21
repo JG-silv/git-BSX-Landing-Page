@@ -26,7 +26,6 @@ export default function Chat() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.35 }}
     >
-      <span className="absolute -inset-1 animate-pulse rounded-full bg-emerald-400/35 blur-md" />
       <motion.a
         href={whatsappLink}
         target="_blank"
