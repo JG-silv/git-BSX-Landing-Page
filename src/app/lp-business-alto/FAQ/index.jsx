@@ -27,7 +27,7 @@ const itensFaq = [
       "Você pode enviar o formulário da página ou falar diretamente no WhatsApp pelo botão flutuante.",
   },
 ];
-
+// REVER OS TEXTOS COM GABRIEL - PARA VER SE ESTÃO CORRETOS
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
